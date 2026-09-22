@@ -1,5 +1,5 @@
-const OFFICE_LAT = 25.062788;
-const OFFICE_LNG = 121.653134;
+const OFFICE_LAT = 25.022826;
+const OFFICE_LNG = 121.548278;
 
 const statusEl = document.getElementById("status");
 const latEl = document.getElementById("lat");
