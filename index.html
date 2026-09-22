@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPS 定位</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="card">
+    <h1>目前位置 GPS 座標</h1>
+
+    <div id="status" class="status">尚未取得位置</div>
+
+    <dl class="coords">
+      <dt>緯度 (Latitude)</dt>
+      <dd id="lat">--</dd>
+
+      <dt>經度 (Longitude)</dt>
+      <dd id="lng">--</dd>
+
+      <dt>精確度 (Accuracy)</dt>
+      <dd id="acc">--</dd>
+
+      <dt>更新時間</dt>
+      <dd id="time">--</dd>
+    </dl>
+
+    <div class="buttons">
+      <button id="btnOnce">取得目前位置</button>
+      <button id="btnWatch">持續追蹤</button>
+      <button id="btnStop" disabled>停止追蹤</button>
+    </div>
+
+    <a id="mapLink" class="map-link" href="#" target="_blank" rel="noopener" style="display:none">在 Google 地圖中開啟</a>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
