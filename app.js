@@ -1,8 +1,13 @@
+const OFFICE_LAT = 25.062788;
+const OFFICE_LNG = 121.653134;
+
 const statusEl = document.getElementById("status");
 const latEl = document.getElementById("lat");
 const lngEl = document.getElementById("lng");
 const accEl = document.getElementById("acc");
 const timeEl = document.getElementById("time");
+const officeEl = document.getElementById("office");
+const distEl = document.getElementById("dist");
 const mapLink = document.getElementById("mapLink");
 
 const btnOnce = document.getElementById("btnOnce");
@@ -22,6 +27,21 @@ function setStatus(message, type) {
   statusEl.className = "status" + (type ? " " + type : "");
 }
 
+function distanceInMeters(lat1, lng1, lat2, lng2) {
+  const R = 6371000;
+  const toRad = (deg) => (deg * Math.PI) / 180;
+
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
+}
+
 function showPosition(position) {
   const { latitude, longitude, accuracy } = position.coords;
 
@@ -29,6 +49,9 @@ function showPosition(position) {
   lngEl.textContent = longitude.toFixed(6);
   accEl.textContent = `約 ${Math.round(accuracy)} 公尺`;
   timeEl.textContent = new Date(position.timestamp).toLocaleTimeString();
+
+  const distance = distanceInMeters(latitude, longitude, OFFICE_LAT, OFFICE_LNG);
+  distEl.textContent = `${Math.round(distance)} 公尺`;
 
   mapLink.href = `https://www.google.com/maps?q=${latitude},${longitude}`;
   mapLink.style.display = "block";
@@ -80,5 +103,7 @@ btnStop.addEventListener("click", () => {
   btnStop.disabled = true;
   setStatus("已停止追蹤");
 });
+
+officeEl.textContent = `${OFFICE_LAT}, ${OFFICE_LNG}`;
 
 checkSupport();
